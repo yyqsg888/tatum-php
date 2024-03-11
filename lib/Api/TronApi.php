@@ -397,7 +397,7 @@ class TronApi extends AbstractApi {
      * 
      * @return \Tatum\Model\TronAccountTx20200Response
      */
-    public function tronAccountTx20($address, $next = null) {
+    public function tronAccountTx20($address, $next = null, $onlyConfirmed=null, $onlyTo = null) {
         $rHeaders = $this->_headerSelector->selectHeaders(["application/json"], []);
 
         // Path template
@@ -406,7 +406,7 @@ class TronApi extends AbstractApi {
         $result = $this->exec(
             S::createRequest(
                 $this->_caller->config(), self::PKG, "GET", S::parse($rPath, ["address" => $address]), $rPath, [
-                    "next" => isset($next) ? S::toQueryValue($next) : null,
+                    "next" => isset($next) ? S::toQueryValue($next) : null, "onlyConfirmed" => isset($onlyConfirmed), "onlyTo" => isset($onlyTo),
                 ], $rHeaders, []
             ), 
             "\Tatum\Model\TronAccountTx20200Response"
@@ -617,5 +617,6 @@ class TronApi extends AbstractApi {
             
         return $result;
     }
+
     
 }
