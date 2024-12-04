@@ -69,7 +69,8 @@ class GmpMath implements GmpMathInterface {
      * @see GmpMathInterface::pow()
      */
     public function pow(\GMP $base, int $exponent): \GMP {
-        return gmp_pow($base, $exponent);
+        //return gmp_pow($base, $exponent); // Fix for changes made in PHP 8.3.14 which screwed up gmp_pow
+        return $base ** $exponent;
     }
 
     /**
